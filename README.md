@@ -10,7 +10,7 @@ TODO: Package para builder de UI's sem renderização de toda interface, será
 - Adicione isto ao arquivo pubspec.yaml do seu pacote:
 ``` Dart
 dependencies:
-     tiede_builder_pkg: ^1.0.0
+     tiede_builder_pkg: ^1.0.1
 ```
 - Get dependencies
 
