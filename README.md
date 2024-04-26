@@ -55,12 +55,15 @@ class Cidades extends TiedeNotify{
   getCidades({String uf = 'MG'}) async {
     this.uf = uf;
     cidades.clear();
-    notify(isLoading: true);
+
+    notify(isLoading: true); // --------> NOTIFICA ALTERAÇÃO PARA RECONSTRUIR WIDGET E ATIVA LOADING
 
     ApiConsumer().get(uf).then((value) {
       cidades = value;
       print('get ok');
-      notify();
+
+      notify(); // --------> NOTIFICA ALTERAÇÃO PARA RECONSTRUIR WIDGET APOS MODIFICAÇÃO DOS DADOS
+
     });
   }
 
@@ -112,27 +115,27 @@ class HomePage extends StatelessWidget {
                         child: Padding(
                         padding: const EdgeInsets.all(20.0),
 
-                        // RECONSTRUIR
+                        // RECONSTRUIR GALHOS DA ARVORE DE WIDGETS
                         child: TiedeBuilder(
                             notify: cidades,
                             builder: (context)=>
-                            cidades.isLoading 
-                            ? const CircularProgressIndicator()
-                            : ListView(
-                                children: cidades.cidades.map((e) => Text('${e['nome']} - ${cidades.uf}')).toList(),
-                            )
-                        )
+                                cidades.isLoading 
+                                ? const CircularProgressIndicator()
+                                : ListView(
+                                    children: cidades.cidades.map((e) => Text('${e['nome']} - ${cidades.uf}')).toList(),
+                                ),
+                            ),
                         ),
                     ),
 
-                    // RECONSTRUIR
+                    // RECONSTRUIR GALHOS DA ARVORE DE WIDGETS
                     TiedeBuilder(
                         notify: cidades,
                         builder: (context)=>
-                        Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text('Total de cidades: ${cidades.cidades.length}'),
-                        ),
+                            Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text('Total de cidades: ${cidades.cidades.length}'),
+                            ),
                     ),
 
                 ],
